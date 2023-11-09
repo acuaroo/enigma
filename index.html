@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Enigma Machine Demo</title>
+    </head>
+
+    <body>
+        <div class="keyboard lightboard">
+            <div class="row-1">
+                <span>Q</span>
+                <span>W</span>
+                <span>E</span>
+                <span>R</span>
+                <span>T</span>
+                <span>Y</span>
+                <span>U</span>
+                <span>I</span>
+                <span>O</span>
+                <span>P</span>
+            </div>
+
+            <div class="row-2">
+                <span>A</span>
+                <span>S</span>
+                <span>D</span>
+                <span>F</span>
+                <span>G</span>
+                <span>H</span>
+                <span>J</span>
+                <span>K</span>
+                <span>L</span>
+            </div>
+
+            <div class="row-3">
+                <span>Z</span>
+                <span>X</span>
+                <span>C</span>
+                <span>V</span>
+                <span>B</span>
+                <span>N</span>
+                <span>M</span>
+            </div>
+        </div>
+
+        <div class="keyboard pressboard">
+            <div class="row-1">
+                <button onClick="virtualKeyPress()">Q</button>
+                <button onClick="virtualKeyPress()">W</button>
+                <button onClick="virtualKeyPress()">E</button>
+                <button onClick="virtualKeyPress()">R</button>
+                <button onClick="virtualKeyPress()">T</button>
+                <button onClick="virtualKeyPress()">Y</button>
+                <button onClick="virtualKeyPress()">U</button>
+                <button onClick="virtualKeyPress()">I</button>
+                <button onClick="virtualKeyPress()">O</button>
+                <button onClick="virtualKeyPress()">P</button>
+            </div>
+
+            <div class="row-2">
+                <button onClick="virtualKeyPress()">A</button>
+                <button onClick="virtualKeyPress()">S</button>
+                <button onClick="virtualKeyPress()">D</button>
+                <button onClick="virtualKeyPress()">F</button>
+                <button onClick="virtualKeyPress()">G</button>
+                <button onClick="virtualKeyPress()">H</button>
+                <button onClick="virtualKeyPress()">J</button>
+                <button onClick="virtualKeyPress()">K</button>
+                <button onClick="virtualKeyPress()">L</button>
+            </div>
+
+            <div class="row-3">
+                <button onClick="virtualKeyPress()">Z</button>
+                <button onClick="virtualKeyPress()">X</button>
+                <button onClick="virtualKeyPress()">C</button>
+                <button onClick="virtualKeyPress()">V</button>
+                <button onClick="virtualKeyPress()">B</button>
+                <button onClick="virtualKeyPress()">N</button>
+                <button onClick="virtualKeyPress()">M</button>
+            </div>
+        </div>
+
+        
+
+        <textarea id="output-textbox" readonly></textarea>
+    </body>
+
+    <style>
+        .keyboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .row-1 {
+            display: flex;
+        }
+
+        .pressboard button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        .lightboard span {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: 1px solid black;
+            border-radius: 4px;
+            background-color: gray;
+        }
+
+        #output-textbox {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            margin-left: auto;
+            margin-right: auto;
+            resize: none;
+            display: block;
+        }
+    </style>
+
+    <script>
+        var lightboard = document.getElementsByClassName("lightboard")[0];
+        var lightboardKeys = lightboard.getElementsByTagName("span");
+        var outputTextbox = document.getElementById("output-textbox");
+        var lightboardDict = {};
+
+        for (var i = 0; i < lightboardKeys.length; i++) {
+            lightboardDict[lightboardKeys[i].innerText] = lightboardKeys[i];
+        }
+
+        var plugBoardSettings = {
+            "Q": "W",
+            "W": "A",
+            "E": "F",
+            "R": "J",
+        }
+
+        var reflector = {
+            "A": "Y",
+            "B": "R",
+            "C": "U", 
+        };
+
+        var rotorSettings = {
+            "A": [1, "Q", "EKMFLGDQVZNTOWYHXUSPAIBRCJ"],
+            "B": [1, "E", "AJDKSIRUXBLHWTMCQGZNPYFVOE"],
+            "C": [1, "V", "BDFHJLCPRTXVZNYEIWGAKMUSQO"],
+        };
+
+        function plugBoard(input) {
+            return plugBoardSettings[input] || input;
+        }
+
+        function rotorHandle(rotor, input) {
+            var offset = rotor[0] - 1;
+
+            return rotor[2][(input.charCodeAt(0) - 65 + offset) % 26];
+        }
+
+        function reflect(input) {
+            return reflector[input] || input;
+        }
+
+        function rotors(input) {
+            var outputA = rotorHandle(rotorSettings["A"], input);
+            var outputB = rotorHandle(rotorSettings["B"], outputA);
+            var outputC = rotorHandle(rotorSettings["C"], outputB);
+
+            var reflected = reflect(outputC);
+
+            var outputCR = rotorHandle(rotorSettings["C"], reflected);
+            var outputBR = rotorHandle(rotorSettings["B"], outputC);
+            var outputAR = rotorHandle(rotorSettings["A"], outputB);
+
+            return outputAR;
+        }
+
+        function virtualKeyPress() {
+            var element = event.target;
+            var keyFinal = element.innerText;
+
+            keyFinal = plugBoard(keyFinal);
+            keyFinal = rotors(keyFinal);
+            keyFinal = plugBoard(keyFinal);
+
+            var lightKey = lightboardDict[keyFinal];
+
+            lightKey.style.backgroundColor = "yellow";
+            setTimeout(function() {
+                lightKey.style.backgroundColor = "gray";
+            }, 750);
+
+            outputTextbox.value += keyFinal;
+        }
+
+        function init() {
+            outputTextbox.value = "";
+        }
+
+        window.onload = init;
+        virtualKeyPress();
+    </script>
+</html>

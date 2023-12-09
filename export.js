@@ -25,7 +25,8 @@ async function extractAndMinifyJs(htmlFile, outputFile) {
     console.log(minifiedJsString);
 
     const updatedHtmlContent = htmlContent.replace(/<script>[\s\S]*?<\/script>/g, '');
-    const finalHtmlContent = updatedHtmlContent.replace(/onClick="virtualKeyPress\(\)"/g, `onClick=${minifiedJsString}`);
+    const virtualHtmlContent = updatedHtmlContent.replace(/onClick="plugboardPress\(\)"/g, `onClick="virtualKeyPress()"`);
+    const finalHtmlContent = virtualHtmlContent.replace(/onClick="virtualKeyPress\(\)"/g, `onClick=${minifiedJsString}`);
 
     fs.writeFileSync(outputFile, finalHtmlContent, 'utf-8');
 }

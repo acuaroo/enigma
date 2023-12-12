@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Enigma Machine Demo</title>
+    </head>
+
+    <body>
+        <div class="split">
+            <div class="keyboards">
+                <div class="keyboard lightboard">
+                    <div class="row-1">
+                        <span>Q</span>
+                        <span>W</span>
+                        <span>E</span>
+                        <span>R</span>
+                        <span>T</span>
+                        <span>Y</span>
+                        <span>U</span>
+                        <span>I</span>
+                        <span>O</span>
+                        <span>P</span>
+                    </div>
+        
+                    <div class="row-2">
+                        <span>A</span>
+                        <span>S</span>
+                        <span>D</span>
+                        <span>F</span>
+                        <span>G</span>
+                        <span>H</span>
+                        <span>J</span>
+                        <span>K</span>
+                        <span>L</span>
+                    </div>
+        
+                    <div class="row-3">
+                        <span>Z</span>
+                        <span>X</span>
+                        <span>C</span>
+                        <span>V</span>
+                        <span>B</span>
+                        <span>N</span>
+                        <span>M</span>
+                    </div>
+                </div>
+        
+                <div class="keyboard pressboard">
+                    <div class="row-1">
+                        <button onClick="virtualKeyPress()">Q</button>
+                        <button onClick="virtualKeyPress()">W</button>
+                        <button onClick="virtualKeyPress()">E</button>
+                        <button onClick="virtualKeyPress()">R</button>
+                        <button onClick="virtualKeyPress()">T</button>
+                        <button onClick="virtualKeyPress()">Y</button>
+                        <button onClick="virtualKeyPress()">U</button>
+                        <button onClick="virtualKeyPress()">I</button>
+                        <button onClick="virtualKeyPress()">O</button>
+                        <button onClick="virtualKeyPress()">P</button>
+                    </div>
+        
+                    <div class="row-2">
+                        <button onClick="virtualKeyPress()">A</button>
+                        <button onClick="virtualKeyPress()">S</button>
+                        <button onClick="virtualKeyPress()">D</button>
+                        <button onClick="virtualKeyPress()">F</button>
+                        <button onClick="virtualKeyPress()">G</button>
+                        <button onClick="virtualKeyPress()">H</button>
+                        <button onClick="virtualKeyPress()">J</button>
+                        <button onClick="virtualKeyPress()">K</button>
+                        <button onClick="virtualKeyPress()">L</button>
+                    </div>
+        
+                    <div class="row-3">
+                        <button onClick="virtualKeyPress()">Z</button>
+                        <button onClick="virtualKeyPress()">X</button>
+                        <button onClick="virtualKeyPress()">C</button>
+                        <button onClick="virtualKeyPress()">V</button>
+                        <button onClick="virtualKeyPress()">B</button>
+                        <button onClick="virtualKeyPress()">N</button>
+                        <button onClick="virtualKeyPress()">M</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings">
+                <div class="rotor-settings">
+                    <div class="rotor-column" id="rotor-column-C">
+                        <div class="rotor-number" id="rotor-slot-C1">3</div>
+                        <div class="rotor-number" id="rotor-slot-C2">2</div>
+                        <div class="rotor-number highlighted" id="rotor-slot-C3">1</div>
+                        <div class="rotor-number" id="rotor-slot-C4">26</div>
+                        <div class="rotor-number" id="rotor-slot-C5">25</div>
+                    </div>
+
+                    <div class="rotor-column" id="rotor-column-B">
+                        <div class="rotor-number" id="rotor-slot-B1">3</div>
+                        <div class="rotor-number" id="rotor-slot-B2">2</div>
+                        <div class="rotor-number highlighted" id="rotor-slot-B3">1</div>
+                        <div class="rotor-number" id="rotor-slot-B4">26</div>
+                        <div class="rotor-number" id="rotor-slot-B5">25</div>
+
+                    </div>
+
+                    <div class="rotor-column" id="rotor-column-A">
+                        <div class="rotor-number" id="rotor-slot-A1">3</div>
+                        <div class="rotor-number" id="rotor-slot-A2">2</div>
+                        <div class="rotor-number highlighted" id="rotor-slot-A3">1</div>
+                        <div class="rotor-number" id="rotor-slot-A4">26</div>
+                        <div class="rotor-number" id="rotor-slot-A5">25</div>
+                    </div>
+                </div>
+
+                
+                <div class="keyboard plugboard">
+                    <div class="row-1">
+                        <button onClick="plugboardPress()">Q</button>
+                        <button onClick="plugboardPress()">W</button>
+                        <button onClick="plugboardPress()">E</button>
+                        <button onClick="plugboardPress()">R</button>
+                        <button onClick="plugboardPress()">T</button>
+                        <button onClick="plugboardPress()">Y</button>
+                        <button onClick="plugboardPress()">U</button>
+                        <button onClick="plugboardPress()">I</button>
+                        <button onClick="plugboardPress()">O</button>
+                        <button onClick="plugboardPress()">P</button>
+                    </div>
+        
+                    <div class="row-2">
+                        <button onClick="plugboardPress()">A</button>
+                        <button onClick="plugboardPress()">S</button>
+                        <button onClick="plugboardPress()">D</button>
+                        <button onClick="plugboardPress()">F</button>
+                        <button onClick="plugboardPress()">G</button>
+                        <button onClick="plugboardPress()">H</button>
+                        <button onClick="plugboardPress()">J</button>
+                        <button onClick="plugboardPress()">K</button>
+                        <button onClick="plugboardPress()">L</button>
+                    </div>
+        
+                    <div class="row-3">
+                        <button onClick="plugboardPress()">Z</button>
+                        <button onClick="plugboardPress()">X</button>
+                        <button onClick="plugboardPress()">C</button>
+                        <button onClick="plugboardPress()">V</button>
+                        <button onClick="plugboardPress()">B</button>
+                        <button onClick="plugboardPress()">N</button>
+                        <button onClick="plugboardPress()">M</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <textarea id="output-textbox" readonly></textarea>
+
+        
+
+    </body>
+
+    <style>
+        .keyboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .row-1 {
+            display: flex;
+        }
+
+        .pressboard button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        .plugboard button {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: 1px solid black;
+            border-radius: 4px;
+            background-color: gray;
+        }
+
+        .lightboard span {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: 1px solid black;
+            border-radius: 4px;
+            background-color: gray;
+            
+        }
+
+        .split {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .keyboards {
+            margin: 20px;
+        }
+
+        .settings {
+            margin: 20px;
+        }
+
+        .rotor-settings {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .rotor-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-inline: 20px;
+        }
+
+        .rotor-number {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            margin: 5px;
+            text-align: center;
+        }
+
+        .highlighted {
+            background-color: yellow;
+        }
+
+        #output-textbox {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            margin-left: auto;
+            margin-right: auto;
+            resize: none;
+            display: block;
+        }
+    </style>
+
+    <script>
+        var lightboard = document.getElementsByClassName("lightboard")[0];
+        var plugboard = document.getElementsByClassName("plugboard")[0];
+        var lightboardKeys = lightboard.getElementsByTagName("span");
+        var plugboardKeys = plugboard.getElementsByTagName("button");
+        var outputTextbox = document.getElementById("output-textbox");
+
+        var lightboardDict = {};
+        var plugboardDict = {};
+
+        for (var i = 0; i < lightboardKeys.length; i++) {
+            lightboardDict[lightboardKeys[i].innerText] = lightboardKeys[i];
+        }
+
+        for (var i = 0; i < plugboardKeys.length; i++) {
+            plugboardDict[plugboardKeys[i].innerText] = plugboardKeys[i];
+        }
+
+        var defPlugBoardSettings = {};
+
+        var defRotorSettings = {
+            "A": [1, "Q", "EKMFLGDQVZNTOWYHXUSPAIBRCJ", 3],
+            "B": [1, "E", "AJDKSIRUXBLHWTMCQGZNPYFVOE", 12],
+            "C": [1, "V", "BDFHJLCPRTXVZNYEIWGAKMUSQO"],
+            "R": [1, "J", "YRUHQSLDPXNGOKMIEBFZCWVJAT"]
+        };
+
+        var plugBoardSettings = {};
+        var reflector = {};
+        var rotorSettings = {};
+
+        function saveSettings(pb, rs) {
+            if (pb) {
+                localStorage.setItem("plugBoardSettings", JSON.stringify(pb));
+            }
+
+            if (rs) {
+                localStorage.setItem("rotorSettings", JSON.stringify(rs));
+            }
+
+            console.log(JSON.stringify(plugBoardSettings), JSON.stringify(reflector), JSON.stringify(rotorSettings));
+        }
+
+        function loadSettings() {
+            var pb = JSON.parse(localStorage.getItem("plugBoardSettings"));
+            var rs = JSON.parse(localStorage.getItem("rotorSettings"));
+
+            plugBoardSettings = pb || defPlugBoardSettings;
+            rotorSettings = rs || defRotorSettings;
+        }
+
+        function rotateRotors() {
+            rotateRotor(rotorSettings["A"]);
+            updateRotorVisual("A");
+
+            if (rotorSettings["A"][0] === rotorSettings["A"][3]) {
+                rotateRotor(rotorSettings["B"]);
+                updateRotorVisual("B");
+
+                if (rotorSettings["B"][0] === rotorSettings["B"][3]) {
+                    rotateRotor(rotorSettings["C"]);
+                    updateRotorVisual("C");
+
+                }
+            }
+
+        }
+
+        function updateRotorVisual(name) {
+            var main = rotorSettings[name][0];
+
+            var slot1 = document.getElementById(`rotor-slot-${name}1`);
+            var slot2 = document.getElementById(`rotor-slot-${name}2`);
+            var slot3 = document.getElementById(`rotor-slot-${name}3`);
+            var slot4 = document.getElementById(`rotor-slot-${name}4`);
+            var slot5 = document.getElementById(`rotor-slot-${name}5`);
+
+            slot1.innerText = (main + 2) % 26 == 0 ? 26 : (main + 2) % 26
+            slot2.innerText = (main + 1) % 26 == 0 ? 26 : (main + 1) % 26
+            slot3.innerText = main;
+            slot4.innerText = (main - 1) % 26 == 0 ? 26 : (main - 1) % 26;
+            slot5.innerText = (main - 2) % 26 == 0 ? 26 : (main - 2) % 26;
+
+            if (slot5.innerText < 0) {
+                slot5.innerText = 25;
+            }
+        }
+
+        function rotateRotor(rotor) {
+            rotor[0] = (rotor[0] % 26) + 1;
+
+            var rearrangedConfig = "";
+
+            for (var i = 0; i < rotor[2].length; i++) {
+                if (i % 2 === 0) {
+                    rearrangedConfig += rotor[2][(i + 2) % rotor[2].length];
+                } else {
+                    rearrangedConfig += rotor[2][i];
+                }
+            }
+
+            rotor[2] = rearrangedConfig;
+        }
+
+        function plugBoard(input) {
+            var output = plugBoardSettings[input] || input;
+
+            for (var key in plugBoardSettings) {
+                if (plugBoardSettings[key] === input) {
+                    output = key;
+                    break;
+                }
+            }
+
+            return output;
+        }
+
+        function rotorHandle(rotor, input) {
+            var index = rotor[2].indexOf(input);
+
+            index = index % 2 === 0 ? index - 1 : index + 1;
+            index = index % 26;
+
+            if (index < 0) {
+                index = 25;
+            }
+
+            return rotor[2][index];
+        }
+
+        function rotors(input) {
+            var outputA = rotorHandle(rotorSettings["A"], input);
+            var outputB = rotorHandle(rotorSettings["B"], outputA);
+            var outputC = rotorHandle(rotorSettings["C"], outputB);
+
+            var reflected = rotorHandle(rotorSettings["R"], outputC);
+
+            var outputCR = rotorHandle(rotorSettings["C"], reflected);
+            var outputBR = rotorHandle(rotorSettings["B"], outputCR);
+            var outputAR = rotorHandle(rotorSettings["A"], outputBR);
+
+            return outputAR;
+        }
+
+        function virtualKeyPress() {
+            loadSettings();
+
+            var element = event.target;
+            var keyFinal = element.innerText;
+
+            rotateRotors();
+
+            keyFinal = plugBoard(keyFinal);
+            keyFinal = rotors(keyFinal);
+            keyFinal = plugBoard(keyFinal);
+
+            var lightKey = lightboardDict[keyFinal];
+
+            lightKey.style.backgroundColor = "yellow";
+            setTimeout(function () {
+                lightKey.style.backgroundColor = "gray";
+            }, 750);
+
+            outputTextbox.value += keyFinal;
+
+            saveSettings(plugBoardSettings, rotorSettings);
+        }
+
+        function init() {
+            localStorage.removeItem("plugLastKey");
+            localStorage.removeItem("plugBoardSettings");
+            localStorage.removeItem("reflector");
+            localStorage.removeItem("rotorSettings");
+
+            outputTextbox.value = "";
+
+            // remove all cables
+            var cables = document.getElementsByTagName("div");
+
+            for (var i = 0; i < cables.length; i++) {
+                if (cables[i].style.position === "absolute") {
+                    cables[i].remove();
+                }
+            }
+        }
+
+        function plugboardPress() {
+            var element = event.target;
+            var keyFinal = element.innerText;
+
+            var lastKey = localStorage.getItem("plugLastKey");
+
+            if (lastKey && lastKey !== keyFinal && !(plugBoardSettings[keyFinal] || plugBoardSettings[lastKey])) {
+                console.log(lastKey);
+                console.log(plugboardDict, plugboardDict[lastKey]);
+
+                var last = plugboardDict[lastKey];
+                var current = plugboardDict[keyFinal];
+
+                var cable = document.createElement("div");
+                cable.style.position = "absolute";
+                cable.style.width = "6px";
+                cable.style.backgroundColor = "black";
+                cable.className = `${lastKey}${keyFinal}`;
+
+                var x1 = last.offsetLeft + last.offsetWidth / 2;
+                var y1 = last.offsetTop + last.offsetHeight / 2;
+                var x2 = current.offsetLeft + current.offsetWidth / 2;
+                var y2 = current.offsetTop + current.offsetHeight / 2;
+
+                var length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+                cable.style.height = length + "px";
+                cable.style.left = x1 + "px";
+                cable.style.top = y1 + "px";
+
+                var theta = Math.atan2(y2 - y1, x2 - x1) - Math.PI / 2;
+                cable.style.transformOrigin = "center top";
+                cable.style.transform = "rotate(" + theta + "rad)";
+
+                plugBoardSettings[lastKey] = keyFinal;
+                plugBoardSettings[keyFinal] = lastKey;
+
+                saveSettings(plugBoardSettings, null);
+
+                document.body.appendChild(cable);
+
+                localStorage.removeItem("plugLastKey");
+            } else if (plugBoardSettings[keyFinal]) {
+                var opp = plugBoardSettings[keyFinal] || plugBoardSettings[lastKey];
+                var name = "";
+
+                if (plugBoardSettings[keyFinal]) {
+                    delete plugBoardSettings[keyFinal];
+                    name = `${keyFinal}${opp}`;
+                } else {
+                    delete plugBoardSettings[lastKey];
+                    name = `${opp}${lastKey}`;
+                }
+
+                delete plugBoardSettings[opp];
+
+                console.log(name);
+
+                var cable = document.getElementsByClassName(name)[0];
+                cable.remove();
+
+                saveSettings(plugBoardSettings, null);
+
+                localStorage.removeItem("plugLastKey");
+            } else {
+                localStorage.setItem("plugLastKey", keyFinal);
+            }
+        }
+
+        window.onload = init;
+        var element = event.target;
+
+        if (element.parentElement.parentElement.className === "keyboard plugboard") {
+            plugboardPress();
+        } else {
+            virtualKeyPress();
+        }
+    </script>
+</html>
